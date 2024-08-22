@@ -17,20 +17,21 @@ const Stack = createNativeStackNavigator();
 export const AppNavigator = ({ }) => {
   return (
     <NavigationContainer>
-      <FirstStack />
-      <ApplicationStack />
-
+      <Stack.Navigator>
+        <Stack.Screen name={"second"} component={ApplicationStack} />
+        <Stack.Screen name={"first"} component={FirstStack} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 const FirstStack = () => {
   return (
-    <Stack.Navigator>
+    <>
       <Stack.Screen name={routes.FirstScreen} component={FirstScreen} />
       <Stack.Screen name={routes.Login} component={Login} />
       <Stack.Screen name={routes.Register} component={Register} />
-    </Stack.Navigator>
+    </>
   );
 };
 

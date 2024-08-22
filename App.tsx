@@ -35,6 +35,7 @@ import {
 import { container } from './src/infrastructure/di';
 import { HttpManager } from './src/infrastructure/network/http';
 import { DI_KEYS } from './src/infrastructure/config/keys';
+import { AppNavigator } from './src/presentation/navigation';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -72,12 +73,13 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 function App(): React.JSX.Element {
   return (
     <Provider container={container} key={container.id}>
-      <NavigationContainer>
-        <Drawer.Navigator>
-          <Drawer.Screen name="Content" component={Content} />
-          <Drawer.Screen name="Article" component={Article} />
-        </Drawer.Navigator>
-      </NavigationContainer>
+      <AppNavigator />
+        {/* <NavigationContainer>
+          <Drawer.Navigator>
+            <Drawer.Screen name="Content" component={Content} />
+            <Drawer.Screen name="Article" component={Article} />
+          </Drawer.Navigator>
+        </NavigationContainer> */}
     </Provider>
   );
 }
