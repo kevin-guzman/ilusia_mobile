@@ -17,9 +17,9 @@ const Stack = createNativeStackNavigator();
 export const AppNavigator = ({ }) => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name={"second"} component={ApplicationStack} />
-        <Stack.Screen name={"first"} component={FirstStack} />
+      <Stack.Navigator screenOptions={{ headerShown: false }} >
+        <Stack.Screen options={{ headerShown: false }} name={"firstt"} component={FirstStack} />
+        <Stack.Screen options={{ headerShown: false }} name={"second"} component={ApplicationStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -27,11 +27,11 @@ export const AppNavigator = ({ }) => {
 
 const FirstStack = () => {
   return (
-    <>
+    <Stack.Navigator screenOptions={{ headerShown: false }} >
       <Stack.Screen name={routes.FirstScreen} component={FirstScreen} />
       <Stack.Screen name={routes.Login} component={Login} />
       <Stack.Screen name={routes.Register} component={Register} />
-    </>
+    </Stack.Navigator>
   );
 };
 
