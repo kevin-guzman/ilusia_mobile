@@ -13,11 +13,13 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider, useInjection } from 'inversify-react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -30,6 +32,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { container } from './src/infrastructure/di';
+import { HttpManager } from './src/infrastructure/network/http';
+import { DI_KEYS } from './src/infrastructure/config/keys';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -66,17 +71,27 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
+    <Provider container={container} key={container.id}>
+      <NavigationContainer>
         <Drawer.Navigator>
           <Drawer.Screen name="Content" component={Content} />
           <Drawer.Screen name="Article" component={Article} />
         </Drawer.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
 function Article(): React.JSX.Element {
-  return <Text>Article</Text>;
+  const http = useInjection<HttpManager>(DI_KEYS.HTTP);
+  const onClick = ()=>{
+    http.get('/').then(console.log).catch(console.log);
+  }
+  return (
+    <TouchableOpacity onPress={onClick} >
+      <Text>Article</Text>
+    </TouchableOpacity>
+);
 }
 
 function Content(): React.JSX.Element {
