@@ -24,9 +24,7 @@ type Props = {
 };
 
 export function DrawerProvider({ children }: Props) {
-  const [purpose, setPurpose] = useState<DrawerPurpose>(
-    DrawerPurpose.ToggleDrawerMenu,
-  );
+  const [purpose, setPurpose] = useState<DrawerPurpose>(DrawerPurpose.ToggleDrawerMenu);
 
   const setDrawerPurpose = (purpose: DrawerPurpose) => {
     setPurpose(purpose);
@@ -45,9 +43,7 @@ export function withDrawerContext<TProps>(
   return function WithDrawerContext(props: TProps) {
     return (
       <DrawerContext.Consumer>
-        {drawerContext => (
-          <Component {...props} drawerContext={drawerContext} />
-        )}
+        {(drawerContext) => <Component {...props} drawerContext={drawerContext} />}
       </DrawerContext.Consumer>
     );
   };

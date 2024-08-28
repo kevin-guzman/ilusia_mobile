@@ -1,0 +1,21 @@
+{
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^@testing-library/jest-dom$",
+    "^(react|react-native)$",
+    "<THIRD_PARTY_MODULES>",
+    "^(@components|@presentation|@context|@shared|@config|@infra|@domain|@views|@assets)(/.*)$",
+    "^[.]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderGroupNamespaceSpecifiers": true,
+  "importOrderParserPlugins": ["typescript", "scss", "jsx", "decorators-legacy"]
+}

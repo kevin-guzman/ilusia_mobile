@@ -1,4 +1,4 @@
-import { object, string, InferType } from "yup";
+import { InferType, object, string } from 'yup';
 
 export const useLogin = () => {
   const initialValues = {
@@ -12,8 +12,8 @@ export const useLogin = () => {
   });
 
   const onSubmit = (values: InferType<typeof formSchema>) => {
-    console.log("values", values);
-  }
+    console.log('values', values);
+  };
 
   return { initialValues, formSchema, onSubmit };
 };

@@ -16,5 +16,5 @@
       "@views/*": ["src/presentation/views/*"],
       "@assets/*": ["src/presentation/shared/assets/*"]
     }
-  } 
+  }
 }

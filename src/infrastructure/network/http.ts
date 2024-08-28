@@ -20,7 +20,7 @@ export class AxiosHttpManager implements HttpManager {
   get<T>(url: string): Promise<T> {
     return this.http
       .get(url)
-      .then(d => d.data)
-      .catch(e => e);
+      .then((d) => d.data)
+      .catch((e) => e);
   }
 }

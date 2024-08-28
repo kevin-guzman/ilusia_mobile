@@ -1,13 +1,13 @@
-import { Fragment } from "react";
-import { Text, Button } from 'react-native';
-import { Formik } from "formik";
-import { useLogin } from "./useLogin.ts";
+import { Fragment } from 'react';
+import { Button, Text } from 'react-native';
 
-import { CustomTextInput } from "@presentation/shared/components/CustomTextInput";
-import { IlusiaVideoView } from "@presentation/shared/components/IlusiaVideoView";
+import { Formik } from 'formik';
 
-import { styles } from './styles.ts';
+import { CustomTextInput } from '@components/CustomTextInput';
+import { IlusiaVideoView } from '@components/IlusiaVideoView';
+
 import { Props } from './props.ts';
+import { useLogin } from './useLogin.ts';
 
 export const Login = ({}: Props) => {
   const { formSchema, initialValues, onSubmit } = useLogin();
@@ -21,15 +21,18 @@ export const Login = ({}: Props) => {
         validationSchema={formSchema}
         onSubmit={onSubmit}
       >
-        {({ handleSubmit, submitForm, values, errors,  }) => (
+        {({ handleSubmit, errors }) => (
           <Fragment>
             <CustomTextInput name="email" />
             <CustomTextInput name="password" />
-            <Button disabled={Object.keys(errors).length > 0} title="Login" onPress={()=>handleSubmit()} ></Button>
+            <Button
+              disabled={Object.keys(errors).length > 0}
+              title="Login"
+              onPress={() => handleSubmit()}
+            ></Button>
           </Fragment>
         )}
       </Formik>
     </IlusiaVideoView>
   );
 };
-

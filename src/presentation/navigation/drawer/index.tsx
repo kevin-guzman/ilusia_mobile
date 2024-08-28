@@ -1,17 +1,17 @@
-import {DrawerMenu} from './menu';
-import {DrawerContent} from './content';
+import { DrawerContent } from './content';
+import { DrawerMenu } from './menu';
 import {
   DrawerProvider,
-  useDrawerPurpose,
   DrawerPurpose,
-  withDrawerContext
+  useDrawerPurpose,
+  withDrawerContext,
 } from './useDrawerIconPurposeContext';
 
 export {
-  DrawerMenu,
   DrawerContent,
+  DrawerMenu,
   DrawerProvider,
-  useDrawerPurpose,
   DrawerPurpose,
-  withDrawerContext
+  useDrawerPurpose,
+  withDrawerContext,
 };

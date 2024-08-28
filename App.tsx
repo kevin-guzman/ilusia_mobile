@@ -4,9 +4,8 @@
  *
  * @format
  */
-
+import type { PropsWithChildren } from 'react';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,17 +13,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
+  useColorScheme,
 } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+
 import { Provider, useInjection } from 'inversify-react';
-
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
-
 import {
   Colors,
   DebugInstructions,
@@ -32,19 +25,17 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import { DI_KEYS } from './src/infrastructure/config/keys';
 import { container } from './src/infrastructure/di';
 import { HttpManager } from './src/infrastructure/network/http';
-import { DI_KEYS } from './src/infrastructure/config/keys';
 import { AppNavigator } from './src/presentation/navigation';
-
-const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
+function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -54,7 +45,8 @@ function Section({children, title}: SectionProps): React.JSX.Element {
           {
             color: isDarkMode ? Colors.white : Colors.black,
           },
-        ]}>
+        ]}
+      >
         {title}
       </Text>
       <Text
@@ -63,7 +55,8 @@ function Section({children, title}: SectionProps): React.JSX.Element {
           {
             color: isDarkMode ? Colors.light : Colors.dark,
           },
-        ]}>
+        ]}
+      >
         {children}
       </Text>
     </View>
@@ -74,26 +67,20 @@ function App(): React.JSX.Element {
   return (
     <Provider container={container} key={container.id}>
       <AppNavigator />
-        {/* <NavigationContainer>
-          <Drawer.Navigator>
-            <Drawer.Screen name="Content" component={Content} />
-            <Drawer.Screen name="Article" component={Article} />
-          </Drawer.Navigator>
-        </NavigationContainer> */}
     </Provider>
   );
 }
 
 function Article(): React.JSX.Element {
   const http = useInjection<HttpManager>(DI_KEYS.HTTP);
-  const onClick = ()=>{
+  const onClick = () => {
     http.get('/').then(console.log).catch(console.log);
-  }
+  };
   return (
-    <TouchableOpacity onPress={onClick} >
+    <TouchableOpacity onPress={onClick}>
       <Text>Article</Text>
     </TouchableOpacity>
-);
+  );
 }
 
 function Content(): React.JSX.Element {
@@ -109,17 +96,16 @@ function Content(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
         <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+          }}
+        >
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+            Edit <Text style={styles.highlight}>App.tsx</Text> to change this screen and then come
+            back to see your edits.
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
@@ -127,9 +113,7 @@ function Content(): React.JSX.Element {
           <Section title="Debug">
             <DebugInstructions />
           </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
+          <Section title="Learn More">Read the docs to discover what to do next:</Section>
           <LearnMoreLinks />
         </View>
       </ScrollView>

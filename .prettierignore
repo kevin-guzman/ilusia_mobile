@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.vscode/
+android/
+ios/
+.bundle/
+.vendor/

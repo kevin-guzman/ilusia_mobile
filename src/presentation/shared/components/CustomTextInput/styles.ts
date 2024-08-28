@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container:{
+  container: {
     marginVertical: 5,
     backgroundColor: 'white',
   },
   errorText: {
-    color: 'red'
-  }
+    color: 'red',
+  },
 });
