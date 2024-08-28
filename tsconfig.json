@@ -4,5 +4,17 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "types": ["reflect-metadata"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@infra/*": ["src/infrastructure/*"],
+      "@domain/*": ["src/domain/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@config/*": ["src/infrastructure/config/*"],
+      "@components/*": ["src/presentation/shared/components/*"],
+      "@hooks/*": ["src/presentation/shared/hooks/*"],
+      "@views/*": ["src/presentation/views/*"],
+      "@assets/*": ["src/presentation/shared/assets/*"]
+    }
   } 
 }

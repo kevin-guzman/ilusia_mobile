@@ -1,9 +1,16 @@
-import { Text, View } from "react-native";
+import { Text } from 'react-native';
 
-export const Provider = () => {
+import { AppView } from '@presentation/shared/components/AppView';
+
+import { styles } from './styles';
+import { Props } from './props.ts';
+
+export const Provider = ({}: Props) => {
   return (
-    <View>
-      <Text>Provider</Text>
-    </View>
+    <AppView>
+      <Text>
+        Provider
+      </Text>
+    </AppView>
   );
-}
+};

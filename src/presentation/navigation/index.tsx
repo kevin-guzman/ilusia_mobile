@@ -1,16 +1,16 @@
 import { SafeAreaView, Text } from 'react-native';
 import { NavigationContainer, useRoute } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { FirstScreen } from '@views/FirstScreen';
+import { Login } from '@views/Login';
+import { Register } from '@views/Register';
+import { Provider } from '@views/Provider';
+import { ProvidersList } from '@views/ProvidersList';
 
 import { routes, routesTitles, RootStackParamList } from './routes';
-
 import { DrawerContent, DrawerMenu, DrawerProvider } from './drawer';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { FirstScreen } from '../views/FisrtScreen';
-import { Login } from '../views/Login';
-import { Register } from '../views/Register';
-import { Provider } from '../views/Provider';
-import { ProvidersList } from '../views/ProvidersList';
 
 const Drawer = createDrawerNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator();

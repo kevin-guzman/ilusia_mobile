@@ -4,7 +4,7 @@ import {
   LocalStorageManager,
   RNLocalStorageManager,
 } from './local';
-import { DI_KEYS } from '../config/keys';
+import { DI_KEYS } from '@config/keys';
 
 export const bind = (container: Container) => {
   container
