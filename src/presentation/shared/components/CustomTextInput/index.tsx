@@ -6,7 +6,7 @@ import { useField } from 'formik';
 import { Props } from './props.ts';
 import { styles } from './styles';
 
-export const CustomTextInput = ({ name }: Props) => {
+export const CustomTextInput = ({ name, label }: Props) => {
   const [meta, field, helpers] = useField(name);
   const { onBlur, value } = meta;
   const { touched, error } = field;
@@ -19,13 +19,12 @@ export const CustomTextInput = ({ name }: Props) => {
       <TextInput
         testID={name}
         onBlur={() => {
-          // setTouched(true)
           onBlur(name);
         }}
-        onPressIn={() => {
-          // setTouched(true)
-        }}
-        placeholder={name}
+        placeholderTextColor={'white'}
+        cursorColor={'white'}
+        style={styles.textInput}
+        placeholder={label}
         value={value}
         onChangeText={(text) => setValue(text)}
       />

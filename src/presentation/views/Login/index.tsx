@@ -1,10 +1,11 @@
 import { Fragment } from 'react';
-import { Button, Text } from 'react-native';
 
 import { Formik } from 'formik';
 
+import { BackButton } from '@components/BackButton/index.tsx';
 import { CustomTextInput } from '@components/CustomTextInput';
 import { IlusiaVideoView } from '@components/IlusiaVideoView';
+import { FormButton } from '@presentation/shared/components/FormButton/index.tsx';
 
 import { Props } from './props.ts';
 import { useLogin } from './useLogin.ts';
@@ -14,7 +15,7 @@ export const Login = ({}: Props) => {
 
   return (
     <IlusiaVideoView>
-      <Text>Login</Text>
+      <BackButton />
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -23,13 +24,13 @@ export const Login = ({}: Props) => {
       >
         {({ handleSubmit, errors }) => (
           <Fragment>
-            <CustomTextInput name="email" />
-            <CustomTextInput name="password" />
-            <Button
+            <CustomTextInput label="Correo electrónico*" name="email" />
+            <CustomTextInput label="Contraseña*" name="password" />
+            <FormButton
               disabled={Object.keys(errors).length > 0}
-              title="Login"
-              onPress={() => handleSubmit()}
-            ></Button>
+              handleSubmit={handleSubmit}
+              label="Iniciar Sesión"
+            />
           </Fragment>
         )}
       </Formik>
