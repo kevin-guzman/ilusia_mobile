@@ -1,5 +1,8 @@
-import { Text } from 'react-native';
+import { useEffect } from 'react';
+import { PermissionsAndroid, Text } from 'react-native';
 
+import BackgroundService from 'react-native-background-actions';
+import Geolocation from 'react-native-geolocation-service';
 import MapView from 'react-native-maps';
 
 import { AppView } from '@presentation/shared/components/AppView';
@@ -7,6 +10,88 @@ import { AppView } from '@presentation/shared/components/AppView';
 import { Props } from './props.ts';
 
 export const Register = ({}: Props) => {
+  const hasPermission = (): Promise<boolean> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Location Permission',
+            message: 'This app needs to access your location.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        resolve(granted === PermissionsAndroid.RESULTS.GRANTED);
+      } catch (error) {
+        console.log('error', error);
+        resolve(false);
+      }
+    });
+  };
+
+  const getLocation = async () => {
+    const granted = await hasPermission();
+    if (!granted) {
+      console.log('Permission to access location was denied');
+      return;
+    }
+
+    console.log('Permission to access location was granted');
+
+    const onSuccess = (position: Geolocation.GeoPosition) => {
+      const { altitude, longitude, latitude } = position.coords;
+      console.log('POS->', { altitude, longitude, latitude });
+
+      // console.log(position);
+    };
+    const onError = (error: Geolocation.GeoError) => {
+      console.log('onError', error);
+
+      console.log(error);
+    };
+
+    const sleep = (time: any) => new Promise((resolve: any) => setTimeout(() => resolve(), time));
+
+    const backgroundTask = async (taskData: any) => {
+      const { delay } = taskData;
+
+      await new Promise(async (resolve) => {
+        while (BackgroundService.isRunning()) {
+          // Bucle que se ejecuta mientras la tarea esté corriendo
+          console.log('Hola mundo');
+
+          Geolocation.getCurrentPosition(
+            (position) => {
+              console.log(`Location: ${position.coords.latitude}, ${position.coords.longitude}`);
+            },
+            (error) => console.error(error),
+            { enableHighAccuracy: true, distanceFilter: 0, timeout: 20000, maximumAge: 10000 },
+          );
+          await sleep(delay); // Espera 10 segundos antes de volver a ejecutar la tarea
+        }
+        console.log('Finished task out of while');
+      });
+    };
+
+    await BackgroundService.start(backgroundTask, {
+      taskName: 'getLocation',
+      parameters: { delay: 5000 },
+      taskTitle: 'ExampleTask',
+      taskDesc: 'ExampleTask description',
+      taskIcon: {
+        name: 'ic_launcher',
+        type: 'mipmap',
+      },
+    });
+  };
+
+  useEffect(() => {
+    getLocation();
+    //hasPermission();
+  }, []);
+
   return (
     <AppView>
       <Text>Register</Text>
