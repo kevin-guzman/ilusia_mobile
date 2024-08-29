@@ -7,8 +7,8 @@ export const useLogin = () => {
   };
 
   const formSchema = object({
-    email: string().email().required('Email is required'),
-    password: string().required('Password is required'),
+    email: string().email('Email inválido').required('El email es requerido'),
+    password: string().required('La contraseña es requerida'),
   });
 
   const onSubmit = (values: InferType<typeof formSchema>) => {

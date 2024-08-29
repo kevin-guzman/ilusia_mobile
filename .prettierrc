@@ -8,6 +8,7 @@
   "endOfLine": "lf",
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
+    "^reflect-metadata$",
     "^@testing-library/jest-dom$",
     "^(react|react-native)$",
     "<THIRD_PARTY_MODULES>",

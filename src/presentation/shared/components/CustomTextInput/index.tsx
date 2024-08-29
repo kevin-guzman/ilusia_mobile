@@ -16,19 +16,21 @@ export const CustomTextInput = ({ name, label }: Props) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        testID={name}
-        onBlur={() => {
-          onBlur(name);
-        }}
-        placeholderTextColor={'white'}
-        cursorColor={'white'}
-        style={styles.textInput}
-        placeholder={label}
-        value={value}
-        onChangeText={(text) => setValue(text)}
-      />
-      {hasError && <Text style={styles.errorText}>Error: {error}</Text>}
+      <View style={styles.inputContainer}>
+        <TextInput
+          testID={name}
+          onBlur={() => {
+            onBlur(name);
+          }}
+          placeholderTextColor={'white'}
+          cursorColor={'white'}
+          style={styles.textInput}
+          placeholder={label}
+          value={value}
+          onChangeText={(text) => setValue(text)}
+        />
+      </View>
+      {hasError && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };

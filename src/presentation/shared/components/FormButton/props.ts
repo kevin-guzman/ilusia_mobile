@@ -6,4 +6,5 @@ export type Props = {
   disabled?: boolean;
   label: string;
   style?: ViewStyle;
+  testID?: string;
 };
