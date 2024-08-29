@@ -23,7 +23,20 @@ export const Register = ({}: Props) => {
             buttonPositive: 'OK',
           },
         );
-        resolve(granted === PermissionsAndroid.RESULTS.GRANTED);
+        const backgroundGranted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
+          {
+            title: 'Location Permission in background',
+            message: 'This app needs to access your location in background.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        resolve(
+          granted === PermissionsAndroid.RESULTS.GRANTED &&
+            backgroundGranted === PermissionsAndroid.RESULTS.GRANTED,
+        );
       } catch (error) {
         console.log('error', error);
         resolve(false);
@@ -43,13 +56,9 @@ export const Register = ({}: Props) => {
     const onSuccess = (position: Geolocation.GeoPosition) => {
       const { altitude, longitude, latitude } = position.coords;
       console.log('POS->', { altitude, longitude, latitude });
-
-      // console.log(position);
     };
     const onError = (error: Geolocation.GeoError) => {
       console.log('onError', error);
-
-      console.log(error);
     };
 
     const sleep = (time: any) => new Promise((resolve: any) => setTimeout(() => resolve(), time));
@@ -59,17 +68,20 @@ export const Register = ({}: Props) => {
 
       await new Promise(async (resolve) => {
         while (BackgroundService.isRunning()) {
-          // Bucle que se ejecuta mientras la tarea esté corriendo
-          console.log('Hola mundo');
+          console.log('Hola mundo-->');
+          const id = await Geolocation.watchPosition(onSuccess, onError, {
+            enableHighAccuracy: true,
+            distanceFilter: 0,
+            // interval: 5000,
+            // forceRequestLocation: true,
+            // forceLocationManager: true,
+            // showLocationDialog: true,
+            // showsBackgroundLocationIndicator: true,
+            // fastestInterval: 5000,
+          });
 
-          Geolocation.getCurrentPosition(
-            (position) => {
-              console.log(`Location: ${position.coords.latitude}, ${position.coords.longitude}`);
-            },
-            (error) => console.error(error),
-            { enableHighAccuracy: true, distanceFilter: 0, timeout: 20000, maximumAge: 10000 },
-          );
-          await sleep(delay); // Espera 10 segundos antes de volver a ejecutar la tarea
+          await sleep(delay);
+          await Geolocation.clearWatch(id);
         }
         console.log('Finished task out of while');
       });
